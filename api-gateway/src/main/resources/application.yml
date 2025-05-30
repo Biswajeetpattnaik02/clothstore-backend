@@ -1,0 +1,19 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: http://auth-service:8080/
+          predicates:
+            - Path=/api/auth/**
+
+        - id: product-service
+          uri: http://product-service:8081/
+          predicates:
+            - Path=/api/products/**
