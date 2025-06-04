@@ -1,8 +1,11 @@
-FROM eclipse-temurin:24-jdk
+# ===== Stage 1: Build JAR using Maven inside container =====
+FROM maven:3.9.6-eclipse-temurin-17 as builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# copy the fat JAR you built with `mvn clean package`
-COPY target/*.jar app.jar
-
-# run it
-ENTRYPOINT ["java","-jar","app.jar"]
+# ===== Stage 2: Run the app using JDK 17 =====
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
