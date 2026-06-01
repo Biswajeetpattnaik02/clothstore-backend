@@ -13,6 +13,7 @@ jobs:
 
     steps:
       - name: Create folder and text file on C Drive
+        shell: powershell
         run: |
           # Create the directory if it doesn't already exist
           New-Item -ItemType Directory -Force -Path "C:\MyGitHubFolder"
