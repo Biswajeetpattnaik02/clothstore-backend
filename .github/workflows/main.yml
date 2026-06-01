@@ -9,7 +9,7 @@ on:
 jobs:
   manage-files:
     # Target your specific self-hosted runner
-    runs-on: [self-hosted, JARVIS]
+    runs-on: self-hosted
 
     steps:
       - name: Create folder and text file on C Drive
