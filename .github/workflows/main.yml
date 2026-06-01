@@ -1,0 +1,21 @@
+name: Create File on JARVIS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Allows you to trigger this manually from the Actions tab
+
+jobs:
+  manage-files:
+    # Target your specific self-hosted runner
+    runs-on: [self-hosted, JARVIS]
+
+    steps:
+      - name: Create folder and text file on C Drive
+        run: |
+          # Create the directory if it doesn't already exist
+          New-Item -ItemType Directory -Force -Path "C:\MyGitHubFolder"
+          
+          # Create the text file with some initial content
+          Set-Content -Path "C:\MyGitHubFolder\hello.txt" -Value "Hello from GitHub Actions running on JARVIS!"
